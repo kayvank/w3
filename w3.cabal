@@ -1,0 +1,210 @@
+cabal-version: 3.0
+name: w3
+version: 1.0.0.2
+license: Apache-2.0
+license-file: LICENSE
+author: Simon Marlow
+maintainer: Kayvan <kayvan@q2io.com>
+bug-reports: mailto:marlowsd@gmail.com
+stability: stable
+homepage: http://www.haskell.org/w3/
+synopsis: W3, an example Servant
+category: W3
+build-type: Simple
+
+Description:
+  This is an implementation of the classic "Servant" program in
+  Haskell, as an example of how to create a minimal Haskell
+  http application using Cabal, Hackage, Nix, and flake.  Please submit any suggestions and
+  improvements.
+
+
+source-repository head
+  type:     git
+  location: https://github.com/kayvank
+
+common lang
+  default-language:   Haskell2010
+  default-extensions:
+    DeriveAnyClass
+    DeriveFoldable
+    DeriveFunctor
+    DeriveGeneric
+    DeriveLift
+    DeriveTraversable
+    ExplicitForAll
+    FlexibleInstances
+    GeneralizedNewtypeDeriving
+    ImportQualifiedPost
+    InstanceSigs
+    MultiParamTypeClasses
+    ScopedTypeVariables
+    StandaloneDeriving
+    TypeApplications
+    TypeFamilies
+
+  ghc-options:
+    -Wall -Widentities -Wincomplete-record-updates
+    -Wincomplete-uni-patterns -Wmissing-import-lists
+    -Wnoncanonical-monad-instances -Wredundant-constraints
+    -Wunused-packages
+
+library
+  import:          lang
+  hs-source-dirs:  src
+  exposed-modules:
+    W3.Types
+
+  build-depends:
+    , aeson
+    , async
+    , base
+    , base16-bytestring
+    , bytestring
+    , containers
+    , filepath
+    , lens
+    , optparse-applicative
+    , raw-strings-qq
+    , http-media
+    , servant
+    , servant-client-core
+    , servant-server
+    , sqlite-simple
+    , stm
+    , text
+    , time
+    , warp
+
+
+library w3-client
+  import:          lang
+  hs-source-dirs:  w3-client/src
+  exposed-modules:
+    W3.Client.Types
+
+-------------------------
+--   local components  --
+-------------------------
+  build-depends:
+    , w3
+-------------------------
+--       others        --
+-------------------------
+  build-depends:
+    , aeson
+    , async
+    , base
+    , base16-bytestring
+    , bytestring
+    , containers
+    , filepath
+    , lens
+    , optparse-applicative
+    , raw-strings-qq
+    , http-client
+    , http-media
+    , servant
+    , servant-client
+    , servant-client-core
+    , servant-server
+    , sqlite-simple
+    , stm
+    , text
+    , time
+    , warp
+
+---------------------------------------------------------------------
+executable w3-client-exe
+  import:          lang
+  hs-source-dirs:  w3-client/src-exe
+  main-is:         Main.hs
+
+-------------------------
+--   local components  --
+-------------------------
+  build-depends:
+    , w3
+    , w3-client
+-------------------------
+--       others        --
+-------------------------
+  build-depends:
+    , base
+
+---------------------------------------------------------------------
+library w3-server
+  import:          lang
+  hs-source-dirs:  w3-server/src
+  exposed-modules:
+    W3.Server.Types
+-------------------------
+--   local components  --
+-------------------------
+  build-depends:
+    , w3
+-------------------------
+--       others        --
+-------------------------
+  build-depends:
+    , aeson
+    , async
+    , base
+    , base16-bytestring
+    , bytestring
+    , containers
+    , filepath
+    , lens
+    , optparse-applicative
+    , raw-strings-qq
+    , http-media
+    , servant
+    , servant-client-core
+    , servant-server
+    , sqlite-simple
+    , stm
+    , text
+    , time
+    , warp
+
+executable w3-server-exe
+  import:          lang
+  hs-source-dirs:  w3-server/src-exe
+  main-is:         Main.hs
+-------------------------
+--   local components  --
+-------------------------
+  build-depends:
+    , w3
+    , w3-server
+-------------------------
+--       others        --
+-------------------------
+  build-depends:
+    , base
+
+---------------------------------------------------------------------
+test-suite w3-test
+  import:         lang
+  ghc-options:    -Wno-unused-packages
+  type:           exitcode-stdio-1.0
+  main-is:        Spec.hs
+  hs-source-dirs: test
+  other-modules:
+
+  build-depends:
+    , w3
+    , aeson
+    , async
+    , base
+    , bytestring
+    , containers
+    , directory
+    , filepath
+    , hedgehog
+    , lens
+    , sqlite-simple
+    , stm
+    , streaming
+    , tasty
+    , tasty-hedgehog
