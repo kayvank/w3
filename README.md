@@ -1,5 +1,5 @@
 # Servant Client/Server demo
-A quick demo of a [servant] client server application
+A quick demo of a Servant client server application
 
 ## What is it
 A Sample haskell project using:
@@ -28,9 +28,10 @@ TBD
 
 
 ## TODO
-- Move the project to [std devops framework])(https://github.com/divnix/std)
+- Move the project to [std devops framework](https://github.com/divnix/std)
 
 ## References
-- [Getting started with haskell.nix](haskell Infrastructure for NixPkgs)
+- [flake book](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html)
+- [Getting started with haskell.nix](https://input-output-hk.github.io/haskell.nix/tutorials/getting-started)
 - [Servant cook book](https://docs.servant.dev/en/stable/cookbook/index.html)
 - [nix templates](https://github.com/NixOS/templates)

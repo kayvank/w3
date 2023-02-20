@@ -5,11 +5,11 @@ module W3.Types where
 
 import Data.Aeson         (FromJSON, ToJSON)
 import Data.List          (intercalate)
-import Data.Proxy         (Proxy (..))
 import Data.Text          ()
 import Data.Time.Calendar (Day, fromGregorian)
 import GHC.Generics       (Generic)
-import Servant.API
+import Servant.API        (Capture, Get, JSON, Post, QueryParam, ReqBody,
+                           type (:<|>), type (:>))
 
 type UserApi =
   "position" :> Capture "x" Int :> Capture "y" Int :> Get '[JSON] Position
